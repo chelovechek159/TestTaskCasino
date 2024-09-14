@@ -17,7 +17,6 @@ user_data = {
 def browser():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  # Открываем браузер
-        print('Открываем браузер')
         yield browser  # Возвращаем объект браузера для тестов
         browser.close()  # Закрываем браузер после завершения тестов
 
@@ -54,7 +53,8 @@ def test_regn(browser):
     displayed_email = page.inner_text('div.AccountInformationContainer__form_field.email span')
 
     # Проверяем, что отображаемые данные соответствуют отправленным данным
-    assert displayed_nickname == user_data['nickname'], f"Ожидалось {user_data['nickname']}, но отображается {displayed_nickname}"
+    assert displayed_nickname == user_data['nickname'], \
+        f"Ожидалось {user_data['nickname']}, но отображается {displayed_nickname}"
     assert displayed_email == user_data['email'], f"Ожидалось {user_data['email']}, но отображается {displayed_email}"
 
     page.click('.Dialog__action.cancel')
@@ -76,7 +76,8 @@ def test_regn(browser):
 
     page.wait_for_timeout(10000)
     # Проверяем, что игровое поле загружено
-    assert page.is_visible('.WidgetCasinoGameListGamesPlayerItemContainer__game_widget_wrapper'), "Игровое поле не отображается"
+    assert page.is_visible('.WidgetCasinoGameListGamesPlayerItemContainer__game_widget_wrapper'), \
+        "Игровое поле не отображается"
     # Проверяем, что на странице нет сообщений об ошибке
     assert not page.is_visible('.error-message'), "Обнаружено сообщение об ошибке при запуске игры"
     # Проверяем, что баланс игрока отображается
