@@ -12,7 +12,6 @@ def auth_and_play():
         }
 
         # Зайти на сайт онлайн-казино
-        print("Переход на сайт...")
         page.goto(url)
 
         # Ждём появления кнопки "Login"
@@ -21,30 +20,22 @@ def auth_and_play():
         page.click('div.SimpleButton:has-text("Login")')
 
         # Ждём появления модального окна авторизации
-        print("Ожидание поля ввода имени пользователя...")
         page.wait_for_selector('input[name="username"]')
 
-        # Ввести данные в поле username
-        print("Ввод имени пользователя...")
         # Вводим имя пользователя
         page.fill('input[name="username"]', auth_data['login'])
 
-        # Ввести данные в поле password
-        print("Ввод пароля...")
         # Вводим пароль
         page.fill('input[name="password"]', auth_data["password"])
 
         # Нажать кнопку входа (Login)
         page.click('.LoginContainer__sign_in_action')
-        print("Кнопка входа нажата.")
 
         # Выбрать раздел casino
         page.wait_for_selector('text="Casino"')
         page.click('text="Casino"')
-        print("Раздел Casino выбран.")
 
         # Выбрать первую игру
-        print("Ожидание отображения игр...")
         page.wait_for_selector('.WidgetCasinoGameListItemContainer')  # Ожидание появления игр
         first_game = page.query_selector('.WidgetCasinoGameListItemContainer')  # Находим первую ячейку игры
 
@@ -52,19 +43,15 @@ def auth_and_play():
         first_game.hover()
 
         # Ожидание кнопки "Запустить игру"
-        print("Ожидание кнопки 'Запустить игру'...")
         page.wait_for_selector('.WidgetCasinoGameListItemContainer__play')
 
         # Клик по кнопке "Запустить игру"
         page.click('.WidgetCasinoGameListItemContainer__play')
-        print("Игра запущена.")
 
         # Подождать несколько секунд, чтобы убедиться, что игра запущена и загружена
         page.wait_for_timeout(15000)
-        print("Ждём 15 секунд для загрузки игры")
 
         # Закрыть браузер
-        print("Закрытие браузера...")
         browser.close()
 
 
