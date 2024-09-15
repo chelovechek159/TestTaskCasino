@@ -1,8 +1,6 @@
-# TestTaskCasino
+предварительно перед запуском тестов необходимо ввести команды в терминале
+pip install playwright pytest
+pip install Faker
 
-команда для зауска файла авторизации
-`python3 auth_and_play.py`
-
-
-команда для запуска тестов
-`pytest test_regn_and_play.py`
+Для запуска теcтов нужно выполнить команду в терминале
+pytest tests/*
