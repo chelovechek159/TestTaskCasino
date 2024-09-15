@@ -17,8 +17,8 @@ def random_user_data():
     }
     return user_data
 
-def test_registration(page, random_user_data):
 
+def test_registration(page, random_user_data):
     # Регистрация нового пользователя
     registration_page = RegistrationPage(page)
     registration_page.open_registration_page()
@@ -42,5 +42,3 @@ def test_registration(page, random_user_data):
 
     # Попытка регистрации с уже существующими данными
     registration_page.registration_with_existing_user(random_user_data)
-
-    page.close()
