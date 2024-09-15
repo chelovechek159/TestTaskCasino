@@ -20,7 +20,7 @@ def browser():
         browser.close()  # Закрываем браузер после завершения тестов
 
 
-def open__and_fill_registration_page(page):
+def open_and_fill_registration_page(page):
     page.goto(url)
     page.wait_for_selector('div.SimpleButton:has-text("Sign up")')
     page.click('div.SimpleButton:has-text("Sign up")')  # Нажимаем кнопку регистрации
@@ -66,17 +66,40 @@ def launch_first_casino_game(page):
     page.wait_for_selector('.WidgetCasinoGameListItemContainer__play')  # Ожидание кнопки запуска
     page.click('.WidgetCasinoGameListItemContainer__play')  # Нажимаем на кнопку "Запустить игру"
 
-    page.wait_for_timeout(10000)
+    page.wait_for_timeout(7000)
     # Проверяем, что игровое поле загружено
     assert page.is_visible('.WidgetCasinoGameListGamesPlayerItemContainer__game_widget_wrapper'), \
         "Игровое поле не отображается"
     assert not page.is_visible('.error-message'), "Обнаружено сообщение об ошибке при запуске игры"
 
 
+def logout(page):
+    page.click('.menu_button.SimpleButton')
+    page.click('.logout.SimpleButton')
+    page.wait_for_selector('div.SimpleButton:has-text("Login")')
+    assert page.is_visible('div.SimpleButton:has-text("Login")'), "Баланс игрока не отображается"
+
+
+def reg_with_exist_user(page):
+    page.click('div.SimpleButton:has-text("Sign up")')  # Нажимаем кнопку регистрации
+    # Заполняем форму регистрации
+    page.fill('input[type="text"][tabindex="0"].Input.with_clear_button', user_data['nickname'])
+    page.fill('input[type="email"]', user_data['email'])
+    page.fill('input[type="password"]', user_data['password'])
+    page.fill('div.password_confirm-field-container input[type="password"]', user_data['password'])
+    # Нажимаем кнопку регистрации
+    page.click('div.panel.SimpleButton.SimpleButton_use_text.send-form')
+    page.wait_for_selector('.FormField__error_text')
+    assert page.is_visible('.FormField__error_text'), "Владелец зарегистрировался с существующими данными"
+
+
+
 def test_registration(browser):
     page = browser.new_page()  # Создаём новую страницу
-    open__and_fill_registration_page(page)  # Открываем и заполняем страницу регистрации
+    open_and_fill_registration_page(page)  # Открываем и заполняем страницу регистрации
     check_account_information(page)  # Проверяем данные аккаунта
     check_player_balance(page)  # Проверяем баланс
     launch_first_casino_game(page)  # Запускаем игру в казино
+    logout(page)  # Проверяем выход из аккаунта
+    reg_with_exist_user(page)
     page.close()
