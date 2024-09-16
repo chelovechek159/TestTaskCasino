@@ -1,5 +1,3 @@
-# test_registration.py
-
 from pages.account_page import AccountPage
 from pages.registration_page import RegistrationPage
 from pages.menu_page import MenuPage
