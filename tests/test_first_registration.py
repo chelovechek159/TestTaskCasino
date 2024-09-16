@@ -1,5 +1,3 @@
-# test_first_registration.py
-
 from config import URL, browser
 from user_data import user_data
 
