@@ -1,6 +1,8 @@
-предварительно перед запуском тестов необходимо ввести команды в терминале
-pip install playwright pytest
-pip install Faker
+#### предварительно перед запуском тестов необходимо установить pytest, playwrite, Faker
 
-Для запуска теcтов нужно выполнить команду в терминале
-pytest tests/*
+`pip install playwright pytest`
+`pip install Faker`
+
+#### Для запуска теcтов нужно выполнить команду в терминале
+
+`pytest tests/*`
