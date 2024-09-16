@@ -24,8 +24,10 @@ class RegistrationPage:
         self.page.fill(self.PASSWORD_INPUT, user_data['password'])
         self.page.fill(self.PASSWORD_CONFIRM_INPUT, user_data['password'])
 
+
     def submit_registration(self):
         self.page.click(self.SUBMIT_BUTTON)
+        self.page.wait_for_timeout(2000)  # Ожидание после авторизации для корректной загрузки страницы
 
     def registration_with_existing_user(self, user_data):
         self.open_registration_page()

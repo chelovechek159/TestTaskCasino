@@ -8,4 +8,4 @@ class GamePage:
         game_element.hover()
         self.page.wait_for_selector(self.PLAY_BUTTON)
         self.page.click(self.PLAY_BUTTON)
-        self.page.wait_for_timeout(15000)  # Ждём 15 секунд для загрузки игры
+        self.page.wait_for_timeout(10000)  # Ждём 10 секунд для загрузки игры

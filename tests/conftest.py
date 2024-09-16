@@ -1,5 +1,7 @@
 import pytest
+from faker import Faker
 from playwright.sync_api import sync_playwright
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -9,6 +11,7 @@ def browser():
         yield browser  # Возвращаем браузер для использования в тестах
         browser.close()  # Закрываем браузер после всех тестов
 
+
 @pytest.fixture(scope="function")
 def page(browser):
     # Создаём новую страницу для каждого теста
@@ -17,3 +20,14 @@ def page(browser):
     yield page
     page.close()
     context.close()
+
+
+@pytest.fixture(scope='function')
+def random_user_data():
+    fake = Faker()
+    user_data = {
+        'nickname': fake.user_name(),
+        'email': fake.email(),
+        'password': fake.password()
+    }
+    return user_data
