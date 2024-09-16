@@ -1,4 +1,3 @@
-# test_registration_with_existing_data.py
 from pages.menu_page import MenuPage
 from pages.registration_page import RegistrationPage
 
