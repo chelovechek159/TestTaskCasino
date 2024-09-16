@@ -1,5 +1,3 @@
-# test_launch_game.py
-
 from pages.casino_page import CasinoPage
 from pages.game_page import GamePage
 from pages.menu_page import MenuPage
